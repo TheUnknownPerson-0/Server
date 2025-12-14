@@ -6,7 +6,7 @@ import upload from "../middleware/upload.middleware.js";
 const router = express.Router();
 
 // public router 
-router.get("/", getPost);
+router.get("/", getPosts);
 router.get("/:postId", getPost);
 router.get("/user/:username", getUserPosts);
 // protected router 
