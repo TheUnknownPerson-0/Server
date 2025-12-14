@@ -39,11 +39,17 @@ export const createComment = asyncHandler(async (req, res) => {
     let comment;
     try {
         await session.withTransaction(async () => {
-            comment = await Comment.create({
-                user: user._id,
-                post: postId,
-                content,
-            }, { session });
+            const createComment = await Comment.create(
+                [
+                    {
+                        user: user._id,
+                        post: postId,
+                        content,
+                    }
+                ]
+                , { session }
+            );
+            comment = createComment[0];
             await Post.findByIdAndUpdate(postId, {
                 $push: {
                     comments: comment._id,
